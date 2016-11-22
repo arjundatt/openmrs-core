@@ -657,7 +657,8 @@ public class UserServiceImpl extends BaseOpenmrsService implements UserService {
     public String getSecretQuestion(User user) throws APIException {
 		if (user.getUserId() != null) {
 			LoginCredential loginCredential = dao.getLoginCredential(user);
-			return loginCredential.getSecretQuestion();
+			String encryptedQuestion = loginCredential.getSecretQuestion();
+			return Security.decrypt(encryptedQuestion);
 		} else {
 			return null;
 		}
